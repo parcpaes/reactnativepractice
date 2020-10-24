@@ -13,7 +13,7 @@ import {
   FlatList,
   View,
   Text,
-  StatusBar, Button, TextInput
+  StatusBar, Button, TextInput, TouchableOpacity
 } from 'react-native';
 
 import {
@@ -42,18 +42,28 @@ const App = () => {
     setPerson({ name: 'Luigi', age: 45 });
   }
 
+  const pressHandler = (id) => {
+    setPeople((prevPeople) => {
+      return prevPeople.filter(person => person.id != id);
+    })
+  }
+
   const list = () => {
     return people.map((item) => {
       return (
-        <View key={item.key}>
-          <Text style={styles.item}>{item.name}</Text>
-        </View>
+
+        <Text style={styles.item}>{item.name}</Text>
+
       )
     })
   }
 
   const listflat = () => {
-    return ({ item }) => (<Text style={styles.item}>{item.name}</Text>)
+    return ({ item }) => (
+      <TouchableOpacity onPress={() => pressHandler(item.id)}>
+        <Text style={styles.item}>{item.name}</Text>
+      </TouchableOpacity>
+    )
   }
   return (
     <View style={styles.container}>
