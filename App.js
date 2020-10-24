@@ -24,6 +24,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import Header from './components/header';
+import TodoItem from './components/todoItem';
 
 const App = () => {
 
@@ -33,9 +34,15 @@ const App = () => {
     { text: 'play on the switch', key: '3' },
   ]);
 
+  const pressHandler = (key) => {
+    setTodos((prevTodos) => {
+      return prevTodos.filter(todo => todo.key != key);
+    })
+  }
+
   const renderList = () => {
     return ({ item }) => (
-      <Text>{item.text}</Text>
+      <TodoItem item={item} pressHandler={pressHandler} />
     )
   }
 
